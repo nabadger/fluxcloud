@@ -47,6 +47,14 @@ func initExporter(config config.Config) (exporter []exporters.Exporter) {
 			}
 			exporter = append(exporter, slack)
 		}
+
+		if v == "tcp" {
+			tcp, err := exporters.NewTCPOutput(config)
+			if err != nil {
+				log.Fatal(err)
+			}
+			exporter = append(exporter, tcp)
+		}
 	}
 
 	for _, e := range exporter {
